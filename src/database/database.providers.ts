@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { UsersEntity } from '../entity/users.entity';
 import { OtpEntity } from '../entity/otp.entity';
+import { CompanyEntity } from '../entity/company.entity';
 import { OX_GROUP_TEST_SOURCE } from '../constants/constants';
 import {
   DB_DB,
@@ -26,7 +27,7 @@ export const databaseProviders = [
         synchronize: true,
         logging: false,
         schema: DB_SCHEMA,
-        entities: [UsersEntity, OtpEntity],
+        entities: [UsersEntity, OtpEntity, CompanyEntity],
         // extra: {
         //   timezone: 'UTC',
         // },

@@ -3,6 +3,5 @@ export const MODELS = {
   AUTH: 'AUTH_MODEL',
   USERS: 'USERS_MODEL',
   OTP: 'OTP_MODEL',
+  COMPANY: 'COMPANY_MODEL',
 };
-
-export const CACHE_TTL = 3600 * 1000;
