@@ -9,7 +9,10 @@ import { DatabaseModule } from '../../database/database.module';
 import { JWT_SECRET } from '../../utils/env/env';
 import { MailService } from '../../utils/middleware/mail.service';
 import { AuthorizationService } from '../../utils/middleware/authorization.service';
+import { OxApiService } from '../../utils/services/ox-api.service';
 import { usersProviders, UsersService } from '../users';
+import { companyProviders } from '../company/company.providers';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -23,12 +26,15 @@ import { usersProviders, UsersService } from '../users';
   providers: [
     ...usersProviders,
     ...otpProviders,
+    ...companyProviders,
     JwtStrategy,
+    RolesGuard,
     UsersService,
     AuthService,
     AuthorizationService,
     MailService,
+    OxApiService,
   ],
-  exports: [PassportModule, JwtStrategy],
+  exports: [PassportModule, JwtStrategy, AuthService],
 })
 export class AuthModule {}

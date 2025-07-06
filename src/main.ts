@@ -12,15 +12,15 @@ async function bootstrap() {
 
   app.enableCors();
 
-  app.use(bodyParser.json({ limit: '100mb' }));
-  app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
   app.disable('etag');
   app.disable('x-powered-by');
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   const options = new DocumentBuilder()
-    .setTitle('Test')
+    .setTitle('OX Group Test API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -32,8 +32,6 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
-  app.use(bodyParser.json({ limit: '50mb' }));
-  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
   await app.listen(PORT);
 }

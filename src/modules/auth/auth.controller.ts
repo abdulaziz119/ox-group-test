@@ -1,38 +1,56 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { AuthLoginDto, AuthRegisterDto, AuthVerifyDto } from './auth.dto';
+import { Body, Controller, HttpCode, Post, Delete, Param, Get, Query } from '@nestjs/common';
+import { AuthLoginDto, AuthVerifyDto, RegisterCompanyDto } from './auth.dto';
 import { AuthService } from './auth.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { SingleResponse } from '../../utils/dto/dto';
 import { ErrorResourceDto } from '../../utils/dto/error.dto';
 import { UsersEntity } from '../../entity/users.entity';
+import { CompanyEntity } from '../../entity/company.entity';
+import { Auth } from './decorators/auth.decorator';
+import { User } from './decorators/user.decorator';
+import { AdminOnly } from './decorators/admin-only.decorator';
+import { ManagerOnly } from './decorators/manager-only.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/register')
-  @HttpCode(201)
-  async register(
-    @Body() body: AuthRegisterDto,
-  ): Promise<SingleResponse<{ user: string }>> {
-    return await this.authService.register(body);
-  }
-
-  @Post('/sign-verify')
+  @Post('/verify')
   @HttpCode(200)
-  async signVerify(
+  async verify(
     @Body() body: AuthVerifyDto,
   ): Promise<SingleResponse<{ user: UsersEntity; token: string }>> {
     return this.authService.signVerify(body);
   }
 
-  @ApiResponse({ type: ErrorResourceDto, status: 401 })
   @Post('/login')
   @HttpCode(200)
   async login(
     @Body() body: AuthLoginDto,
-  ): Promise<SingleResponse<{ user: UsersEntity; token: string }>> {
+  ): Promise<SingleResponse<{ otp: string }>> {
     return await this.authService.login(body);
+  }
+
+  @Post('/register-company')
+  @HttpCode(201)
+  @Auth()
+  @ApiBearerAuth()
+  async registerCompany(
+    @Body() body: RegisterCompanyDto,
+    @User() user: any,
+  ): Promise<SingleResponse<{ company: CompanyEntity }>> {
+    return await this.authService.registerCompany(body, user.id);
+  }
+
+  @Delete('/company/:id')
+  @HttpCode(200)
+  @AdminOnly()
+  @ApiBearerAuth()
+  async deleteCompany(
+    @Param('id') companyId: string,
+    @User() user: any,
+  ): Promise<SingleResponse<{ message: string }>> {
+    return await this.authService.deleteCompany(companyId, user.id);
   }
 }

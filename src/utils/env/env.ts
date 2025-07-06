@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 3000;
 const SMTP_USER = process.env.SMTP_USER || '';
 const SMTP_PASS = process.env.SMTP_PASS || '';
 
-if (!DB_SCHEMA || !DB_HOST || !DB_USER || !DB_DB || !DB_PASS) {
-  throw new Error('Missing environment variables');
+if (!DB_SCHEMA || !DB_HOST || !DB_USER || !DB_DB || !DB_PASS || !JWT_SECRET) {
+  throw new Error('Missing critical environment variables: DB_SCHEMA, DB_HOST, DB_USER, DB_DB, DB_PASS, JWT_SECRET');
 } else {
   console.log('Environment variables are set');
 }

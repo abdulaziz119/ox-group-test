@@ -22,9 +22,20 @@ export class AuthorizationService {
         HttpStatus.UNAUTHORIZED,
       );
     }
+    
+    // Get user to include role in token
+    const user = await this.usersRepo.findOne({
+      where: { id, email },
+    });
+    
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
+    }
+    
     const data = {
       id: id,
-      role: email,
+      email: email,
+      role: user.role,
     };
     const token = jwt.sign(data, JWT_SECRET, { expiresIn: '7d' });
     return token;
@@ -32,12 +43,12 @@ export class AuthorizationService {
 
   async verify(
     token: string,
-    email: string,
-  ): Promise<{ id: number; email: string }> {
+    email?: string,
+  ): Promise<{ id: number; email: string; role: string }> {
     try {
-      if (!token || !email) {
+      if (!token) {
         throw new HttpException(
-          'Token is required or email is required',
+          'Token is required',
           HttpStatus.UNAUTHORIZED,
         );
       }
@@ -48,9 +59,11 @@ export class AuthorizationService {
       const decoded = jwt.verify(cleanToken, JWT_SECRET) as {
         id: number;
         email: string;
+        role: string;
         iat?: number;
         exp?: number;
       };
+      
       if (!decoded) {
         throw new HttpException(
           'Token verification failed',
@@ -65,14 +78,14 @@ export class AuthorizationService {
         },
       });
 
-      if (!user || decoded.email !== email) {
+      if (!user) {
         throw new HttpException(
-          'User not found or email mismatch',
+          'User not found or token invalid',
           HttpStatus.UNAUTHORIZED,
         );
       }
 
-      return decoded;
+      return { id: decoded.id, email: decoded.email, role: decoded.role };
     } catch (error) {
       throw new HttpException(
         error.message || 'Token verification failed',

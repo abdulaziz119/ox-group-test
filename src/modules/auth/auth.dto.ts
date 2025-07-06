@@ -53,12 +53,6 @@ export class AuthLoginDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
-
-  @ApiProperty({ example: '12345678' })
-  @IsString()
-  @IsNotEmpty()
-  @Length(8, 255)
-  password: string;
 }
 
 export class AuthVerifyDto {
@@ -71,4 +65,16 @@ export class AuthVerifyDto {
   @IsString()
   @IsNotEmpty()
   otp: string;
+}
+
+export class RegisterCompanyDto {
+  @ApiProperty({ example: 'Bearer xyz123...' })
+  @IsString()
+  @IsNotEmpty()
+  token: string;
+
+  @ApiProperty({ example: 'demo' })
+  @IsString()
+  @IsNotEmpty()
+  subdomain: string;
 }

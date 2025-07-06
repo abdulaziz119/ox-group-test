@@ -1,98 +1,204 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# OX Group Test - NestJS Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+NestJS backend test loyihasi - autentifikatsiya, company management va OX API integratsiya bilan.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Texnologiyalar
 
-## Description
+- **NestJS** - Asosiy framework
+- **TypeORM** - Ma'lumotlar bazasi ORM
+- **PostgreSQL** - Ma'lumotlar bazasi
+- **JWT** - Autentifikatsiya
+- **Swagger** - API hujjatlashtirish
+- **TypeScript** - Dasturlash tili
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📋 Xususiyatlar
 
-## Project setup
+### Autentifikatsiya
+- Email + OTP orqali login
+- JWT token bilan himoyalangan route'lar
+- Custom decorator'lar: `@AdminOnly()`, `@ManagerOnly()`
 
+### Company Management
+- OX API orqali company validation
+- Company qo'shish va o'chirish
+- Role-based access control
+
+### OX API Integratsiya
+- Token validation
+- Products/variations olish
+- Error handling
+
+## 🛠️ O'rnatish
+
+### 1. Repository'ni clone qiling
 ```bash
-$ yarn install
+git clone <repo-url>
+cd ox-group-test
 ```
 
-## Compile and run the project
-
+### 2. Dependencies o'rnating
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+npm install
 ```
 
-## Run tests
+### 3. Environment variables sozlang
+`.env` fayl yarating va quyidagi o'zgaruvchilarni to'ldiring:
 
-```bash
-# unit tests
-$ yarn run test
+```env
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_DATABASE=ox_group_test
+DB_SCHEMA=public
 
-# e2e tests
-$ yarn run test:e2e
+# JWT
+JWT_SECRET=your-super-secret-jwt-key
 
-# test coverage
-$ yarn run test:cov
+# SMTP (Email uchun)
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+
+# Server
+PORT=3000
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g mau
-$ mau deploy
+### 4. Ma'lumotlar bazasini tayyorlang
+PostgreSQL server ishga tushiring va database yarating:
+```sql
+CREATE DATABASE ox_group_test;
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 5. Loyihani ishga tushiring
+```bash
+# Development mode
+npm run start:dev
 
-## Resources
+# Production mode
+npm run build
+npm run start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+## 📚 API Endpoints
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Autentifikatsiya
+- `POST /api/auth/login` - Email orqali login (OTP olish)
+- `POST /api/auth/verify` - OTP tasdiqlash va token olish
+- `POST /api/auth/register` - Ro'yxatdan o'tish
 
-## Support
+### Company Management
+- `POST /api/auth/register-company` - Company qo'shish (🔒 Auth required)
+- `DELETE /api/auth/company/:id` - Company o'chirish (🔒 Admin only)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Products
+- `GET /api/products?page=1&size=10` - Products ro'yxati (🔒 Manager+)
 
-## Stay in touch
+## 🔧 API Usage
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 1. Login
+```bash
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com"}'
+```
 
-## License
+### 2. Verify OTP
+```bash
+curl -X POST http://localhost:3000/api/auth/verify \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com", "otp": "123456"}'
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 3. Register Company
+```bash
+curl -X POST http://localhost:3000/api/auth/register-company \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"subdomain": "demo", "token": "Bearer ox-api-token"}'
+```
+
+### 4. Get Products
+```bash
+curl -X GET "http://localhost:3000/api/products?page=1&size=10" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+## 📖 API Documentation
+
+Loyiha ishga tushgandan so'ng Swagger UI'ga quyidagi URL orqali kiring:
+```
+http://localhost:3000/api/swagger
+```
+
+## 🔒 Role System
+
+- **Manager** - Default role, products ko'ra oladi
+- **Admin** - Company yaratgan user, company o'chira oladi
+
+## 🌐 OX API Integration
+
+Loyiha OX tizimi bilan integratsiya qilangan:
+- **Base URL**: `https://{subdomain}.ox-sys.com`
+- **Endpoints**:
+  - `/profile` - Token validation
+  - `/variations` - Products ro'yxati
+
+## 🧪 Testing
+
+```bash
+# Unit tests
+npm run test
+
+# E2E tests  
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+```
+
+## 📝 Scripts
+
+```bash
+npm run start        # Production mode
+npm run start:dev    # Development mode (watch)
+npm run start:debug  # Debug mode
+npm run build        # Build project
+npm run lint         # ESLint
+npm run format       # Prettier
+```
+
+## 🚨 Environment Variables Validation
+
+Loyiha ishga tushishdan oldin muhim environment variable'lar tekshiriladi:
+- `DB_HOST`, `DB_USERNAME`, `DB_PASSWORD`, `DB_DATABASE`, `DB_SCHEMA`
+- `JWT_SECRET`
+
+Agar biror variable mavjud bo'lmasa, xato chiqadi.
+
+## 📁 Project Structure
+
+```
+src/
+├── constants/           # Konstantalar
+├── database/           # Database konfiguratsiya
+├── entity/             # TypeORM entities
+├── modules/            # Feature modules
+│   ├── auth/           # Autentifikatsiya
+│   ├── users/          # Foydalanuvchilar
+│   ├── company/        # Kompaniyalar
+│   └── products/       # Mahsulotlar
+└── utils/              # Utility classes
+```
+
+## 🤝 Contributing
+
+1. Fork qiling
+2. Feature branch yarating (`git checkout -b feature/AmazingFeature`)
+3. Commit qiling (`git commit -m 'Add some AmazingFeature'`)
+4. Push qiling (`git push origin feature/AmazingFeature`)
+5. Pull Request yarating
+
+## 📄 License
+
+Bu loyiha MIT litsenziyasi ostida.
